@@ -40,7 +40,7 @@ export const StockInput = ({ onAdd, isAdding }: StockInputProps) => {
           onKeyDown={handleKeyDown}
         />
       </div>
-      <button onClick={handleSubmit} disabled={isAdding || !symbol.trim()}>
+      <button className="button-primary" onClick={handleSubmit} disabled={isAdding || !symbol.trim()}>
         <Plus strokeWidth={2} size={16} />
         {isAdding ? "Adding..." : "Add"}
       </button>

@@ -1,6 +1,6 @@
 .stock-input {
   display: flex;
-  gap: 10px;
+  gap: 15px;
 
   .stock-input__field {
     display: flex;
@@ -8,9 +8,14 @@
     align-items: center;
     gap: 8px;
     background-color: var(--color-surface);
-    padding: 0 10px;
+    padding: 1px 10px;
     border: 1px solid var(--color-border);
-    border-radius: 8px;
+    border-radius: 24px;
+    transition: border-color 0.15s ease;
+
+    &:focus-within {
+      border-color: #94a3b8;
+    }
 
     input {
       flex: 1;
@@ -22,7 +27,7 @@
     }
   }
 
-  button {
+  .button-primary {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -33,15 +38,11 @@
     border-radius: 24px;
     cursor: pointer;
     font-weight: 500;
-  }
+    transition: all 0.4s ease;
 
-  button:disabled {
-    opacity: 0.8;
-    cursor: auto
-  }
-
-  input:focus {
-    outline: none;
-    border-color: var(--color-primary);
+    &:disabled {
+      opacity: 0.8;
+      cursor: auto;
+    }
   }
 }
