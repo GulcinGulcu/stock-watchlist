@@ -23,7 +23,7 @@ export const StockCard = ({ stock, onRemove }: StockCardProps) => {
       <div className="stock-card__header">
         <span className="stock-card__symbol">{stock.symbol}</span>
         <button className="stock-card__remove" onClick={handleRemove}>
-          <X />
+          <X size={20} />
         </button>
       </div>
       <p className="stock-card__name">{stock.name}</p>
