@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Financial Data View",
+  title: "Stock Watchlist",
   description: "Track stock information by symbol",
 };
 
