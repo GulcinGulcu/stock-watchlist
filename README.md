@@ -76,7 +76,7 @@ src
 Install Dependencies
 
 ```bash
-npm istall
+npm install
 ```
 
 Run the development server:
