@@ -24,43 +24,43 @@ Users can build a personal watchlist, view key stock metrics, and manage their t
 
 ## Project Structure
 
+````text
 src
-│
 ├─ app
-│   ├─ layout.tsx
-│   ├─ page.tsx
-│   ├─ globals.scss
-│   └─ favicon.ico
+│  ├─ layout.tsx
+│  ├─ page.tsx
+│  ├─ globals.scss
+│  └─ favicon.ico
 │
 ├─ components
-│   ├─ Header
-│   │   ├─ Header.tsx
-│   │   └─ Header.scss
-│   │
-│   ├─ StockInput
-│   │   ├─ StockInput.tsx
-│   │   └─ StockInput.scss
-│   │
-│   ├─ StockList
-│   │   ├─ StockList.tsx
-│   │   └─ StockList.scss
-│   │
-│   ├─ StockCard
-│   │   ├─ StockCard.tsx
-│   │   └─ StockCard.scss
-│   │
-│   └─ Loader
-│       ├─ Loader.tsx
-│       └─ Loader.scss
+│  ├─ Header
+│  │  ├─ Header.tsx
+│  │  └─ Header.scss
+│  │
+│  ├─ StockInput
+│  │  ├─ StockInput.tsx
+│  │  └─ StockInput.scss
+│  │
+│  ├─ StockList
+│  │  ├─ StockList.tsx
+│  │  └─ StockList.scss
+│  │
+│  ├─ StockCard
+│  │  ├─ StockCard.tsx
+│  │  └─ StockCard.scss
+│  │
+│  └─ Loader
+│     ├─ Loader.tsx
+│     └─ Loader.scss
 │
 ├─ services
-│   └─ stockService.ts
+│  └─ stockService.ts
 │
 ├─ data
-│   └─ mockStocks.ts
+│  └─ mockStocks.ts
 │
 └─ types
-    └─ stock.ts
+   └─ stock.ts
 
 ## Getting Started
 
@@ -74,7 +74,7 @@ yarn dev
 pnpm dev
 # or
 bun dev
-```
+````
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
