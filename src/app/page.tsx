@@ -57,7 +57,7 @@ export default function Home() {
 
       setStocks(updatedStocks);
     } catch {
-      setError("Failed to refresh stocks.");
+      setError("Unable to refresh stock data right now. Please try again shortly.");
     } finally {
       setIsRefreshing(false);
     }
@@ -103,7 +103,7 @@ export default function Home() {
           <section className="input-panel">
             <StockInput onAdd={addStock} isAdding={isAdding} />
             <p className="input-panel__helper">
-              Try symbols like AAPL, TSLA, MSFT
+              Try symbols like AAPL, TSLA, NVDA
             </p>
             {error && <p className="input-panel__error">{error}</p>}
           </section>
