@@ -1,6 +1,5 @@
 import { mockStocks } from "@/data/mockStocks";
 import { StockData } from "@/types/stock";
-import { get } from "http";
 
 const API_KEY = process.env.NEXT_PUBLIC_POLYGON_API_KEY;
 const BASE_URL = "https://api.massive.com";
