@@ -57,7 +57,9 @@ export default function Home() {
 
       setStocks(updatedStocks);
     } catch {
-      setError("Unable to refresh stock data right now. Please try again shortly.");
+      setError(
+        "Unable to refresh stock data right now. Please try again shortly.",
+      );
     } finally {
       setIsRefreshing(false);
     }
@@ -73,7 +75,9 @@ export default function Home() {
         return;
       }
 
-      const existingStock = stocks.find((stock) => stock.symbol === normalizedSymbol);
+      const existingStock = stocks.find(
+        (stock) => stock.symbol === normalizedSymbol,
+      );
       if (existingStock) {
         setError("Stock already added.");
         return;
@@ -83,7 +87,15 @@ export default function Home() {
       const stockData = await getStockBySymbol(normalizedSymbol);
       setStocks((prev) => [...prev, stockData]);
     } catch (error) {
-      setError("Symbol not found.");
+      if (error instanceof Error) {
+        if (error.message === "RATE_LIMIT") {
+          setError("Too many requests. Please wait a moment and try again.");
+        } else {
+          setError("Symbol not found.");
+        }
+      } else {
+        setError("Something went wrong.");
+      }
     } finally {
       setIsAdding(false);
     }

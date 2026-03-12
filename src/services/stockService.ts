@@ -23,8 +23,12 @@ const fetchStockPrice = async (symbol: string) => {
     { cache: "no-store" },
   );
 
+  if (response.status === 429) {
+    throw new Error("RATE_LIMIT");
+  }
+
   if (!response.ok) {
-    throw new Error("Failed to fetch stock price data");
+    throw new Error("FETCH_FAILED");
   }
 
   const data = await response.json();
@@ -86,7 +90,11 @@ export const getStockBySymbol = async (symbol: string): Promise<StockData> => {
 
   try {
     return await fetchStockData(normalizedSymbol);
-  } catch {
-    throw new Error("Failed to fetch stock data.");
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error;
+    }
+
+    throw new Error("FETCH_FAILED");
   }
 };
