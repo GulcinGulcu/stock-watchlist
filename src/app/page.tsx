@@ -1,66 +1,124 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useEffect, useState } from "react";
+import { StockData } from "@/types/stock";
+import { getStockBySymbol } from "@/services/stockService";
+import { StockInput } from "@/components/StockInput/StockInput";
+import { Header } from "@/components/Header/Header";
+import { StockList } from "@/components/StockList/StockList";
+import { Loader } from "@/components/Loader/Loader";
+
+const STORAGE_KEY = "stock_watchlist";
 
 export default function Home() {
+  const [stocks, setStocks] = useState<StockData[]>([]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isRestoring, setIsRestoring] = useState(true);
+  const [isAdding, setIsAdding] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const loadSavedStocks = async () => {
+      try {
+        const savedSymbols = localStorage.getItem(STORAGE_KEY);
+        if (!savedSymbols) return;
+
+        const parsedSymbols: string[] = JSON.parse(savedSymbols);
+        if (parsedSymbols.length === 0) return;
+
+        setError("");
+
+        const savedStocks = await Promise.all(
+          parsedSymbols.map((symbol) => getStockBySymbol(symbol)),
+        );
+        setStocks(savedStocks);
+      } catch (error) {
+        setError("Failed to load saved stocks.");
+      } finally {
+        setIsRestoring(false);
+      }
+    };
+    loadSavedStocks();
+  }, []);
+
+  useEffect(() => {
+    const symbols = stocks.map((stock) => stock.symbol);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(symbols));
+  }, [stocks]);
+
+  const refreshStocks = async () => {
+    try {
+      setError("");
+      setIsRefreshing(true);
+
+      const updatedStocks = await Promise.all(
+        stocks.map((stock) => getStockBySymbol(stock.symbol)),
+      );
+
+      setStocks(updatedStocks);
+    } catch {
+      setError("Failed to refresh stocks.");
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
+  const addStock = async (symbol: string) => {
+    try {
+      setError("");
+
+      const normalizedSymbol = symbol.trim().toUpperCase();
+      if (!normalizedSymbol) {
+        setError("Please enter a stock symbol.");
+        return;
+      }
+
+      const existingStock = stocks.find((stock) => stock.symbol === normalizedSymbol);
+      if (existingStock) {
+        setError("Stock already added.");
+        return;
+      }
+
+      setIsAdding(true);
+      const stockData = await getStockBySymbol(normalizedSymbol);
+      setStocks((prev) => [...prev, stockData]);
+    } catch (error) {
+      setError("Symbol not found.");
+    } finally {
+      setIsAdding(false);
+    }
+  };
+
+  const removeStock = (symbol: string) => {
+    setError("");
+
+    setStocks((prev) => prev.filter((stock) => stock.symbol !== symbol));
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+    <>
+      <Header onRefresh={refreshStocks} isRefreshing={isRefreshing} />
+      <main className="page">
+        <div className="container">
+          <section className="input-panel">
+            <StockInput onAdd={addStock} isAdding={isAdding} />
+            <p className="input-panel__helper">
+              Try symbols like AAPL, TSLA, MSFT
+            </p>
+            {error && <p className="input-panel__error">{error}</p>}
+          </section>
+          {isRestoring ? (
+            <Loader />
+          ) : stocks.length > 0 ? (
+            <StockList stocks={stocks} onRemove={removeStock} />
+          ) : (
+            <section className="empty-state">
+              <p>No stocks added yet.</p>
+              <span>Search for a symbol to build your watchlist.</span>
+            </section>
+          )}
         </div>
       </main>
-    </div>
+    </>
   );
 }

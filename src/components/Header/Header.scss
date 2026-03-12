@@ -1,0 +1,43 @@
+.header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 35px 0;
+  border-bottom: 1px solid var(--color-border);
+  max-width: 1140px;
+  margin: 0 auto;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-weight: 600;
+    font-size: 26px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  &__refresh {
+    padding: 12px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: var(--color-surface);
+    cursor: pointer;
+    transition: all 0.4s ease;
+
+    &:hover {
+      background-color: var(--color-border);
+    }
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

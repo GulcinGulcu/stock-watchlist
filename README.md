@@ -1,4 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Stock Watchlist
+
+A simple web application for tracking stock information by symbol.  
+Users can build a personal watchlist, view key stock metrics, and manage their tracked stocks in a clean interface.
+
+## Features
+
+- Add stocks to a personal watchlist by entering a stock symbol
+- View stock price, daily change, high, and low values
+- Remove stocks from the watchlist
+- Refresh stock data manually
+- Persistent watchlist using `localStorage`
+- Loading state while restoring saved stocks
+- Error handling for invalid symbols
+- Responsive card-based UI
+
+## Tech Stack
+
+- **Next.js**
+- **React**
+- **TypeScript**
+- **SCSS**
+- **Lucide Icons**
+
+## Project Structure
+
+src
+│
+├─ app
+│ ├─ layout.tsx
+│ ├─ page.tsx
+│ ├─ globals.scss
+│ └─ favicon.ico
+│
+├─ components
+│ ├─ Header
+│ │ ├─ Header.tsx
+│ │ └─ Header.scss
+│ │
+│ ├─ StockInput
+│ │ ├─ StockInput.tsx
+│ │ └─ StockInput.scss
+│ │
+│ ├─ StockList
+│ │ ├─ StockList.tsx
+│ │ └─ StockList.scss
+│ │
+│ ├─ StockCard
+│ │ ├─ StockCard.tsx
+│ │ └─ StockCard.scss
+│ │
+│ └─ Loader
+│ ├─ Loader.tsx
+│ └─ Loader.scss
+│
+├─ services
+│ └─ stockService.ts
+│
+├─ data
+│ └─ mockStocks.ts
+│
+└─ types
+└─ stock.ts
 
 ## Getting Started
 

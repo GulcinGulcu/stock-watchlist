@@ -1,0 +1,77 @@
+.stock-card {
+  background: var(--color-surface);
+  border: 0.5px solid var(--color-border);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__symbol {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  &__remove {
+    border: none;
+    background: transparent;
+    color: var(--color-neutral);
+    cursor: pointer;
+    font-size: 14px;
+
+    &:hover {
+      color: var(--color-text);
+    }
+  }
+
+  &__name {
+    font-size: 14px;
+    color: var(--color-neutral);
+    margin-bottom: 30px;
+  }
+
+  &__price {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 8px;
+  }
+
+  &__change {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 30px;
+
+    &--positive {
+      color: var(--color-success);
+    }
+
+    &--negative {
+      color: var(--color-danger);
+    }
+  }
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--color-neutral);
+  }
+}

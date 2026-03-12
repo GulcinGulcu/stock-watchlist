@@ -1,0 +1,47 @@
+.stock-input {
+  display: flex;
+  gap: 10px;
+
+  .stock-input__field {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--color-surface);
+    padding: 0 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+
+    input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 10px 0;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 16px;
+    border: none;
+    background: var(--color-primary);
+    color: var(--color-surface);
+    border-radius: 24px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  button:disabled {
+    opacity: 0.8;
+    cursor: auto
+  }
+
+  input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+}
